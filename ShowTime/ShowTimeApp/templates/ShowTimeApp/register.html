@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container py-5">
+        <img src="{% static 'ShowTimeApp/showtime-logo.png' %}" alt="ShowTime Logo" class="img-fluid mb-4 mx-auto d-block">
+        <h1 class="text-center mb-4">Create your account!</h1>
+
+        <form action="{% url 'ShowTimeApp:register' %}" method="POST" class="w-100 mx-auto" style="max-width: 400px;" onsubmit="return validateUsername()">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary w-100">Create account</button>
+            </div>
+        </form>
+
+        <p class="text-center">{{ message }}</p>
+        <a href="{% url 'ShowTimeApp:Login' %}" class="d-block text-center">Login page</a>
+
+        <script>
+            function validateUsername() {
+                
+                var username = document.getElementById('id_username').value;
+                var password = document.getElementById('id_password').value;
+    
+                
+                var check = /[^a-zA-Z0-9]/;
+    
+                // Check if username contains any special characters
+                if (check.test(username)) {
+                    alert("Username should only contain letters and numbers, no special characters allowed.");
+                    return false;
+                } 
+                // Check password length
+                else if (password.length < 8){
+                    alert("Password must be at least 8 characters long.");
+                    return false;
+                }
+                
+                return true; 
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movies Watched</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <!-- Logo -->
+        <img src="{% static 'ShowTimeApp/showtime-logo.png' %}" alt="ShowTime Logo" class="img-fluid mx-auto d-block">
+
+        <!-- Page Title -->
+        <h1 class="text-center my-4">Movies Watched</h1>
+
+        <!-- Movie Table -->
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.year }}</td>
+                        <td>{{ movie.genre }}</td>
+                        <td>{{ movie.rating }}</td>
+                        <td>{{ movie.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        
+        <div class="text-center my-4">
+            <form action="{% url 'ShowTimeApp:displayMovies' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="choice" value="add" class="btn btn-primary mx-2">Add a Movie</button>
+                <button type="submit" name="choice" value="update" class="btn btn-warning mx-2">Update a Movie</button>
+                <button type="submit" name="choice" value="remove" class="btn btn-danger mx-2">Remove a Movie</button>
+            </form>
+        </div>
+
+        
+        <div class="text-center">
+            <a href="{% url 'ShowTimeApp:Login' %}" class="btn btn-secondary">Log Out</a>
+        </div>
+    </div>
+
+   
+</body>
+</html>

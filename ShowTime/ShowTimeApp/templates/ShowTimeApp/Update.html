@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Movie Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+       
+        <img src="{% static 'ShowTimeApp/showtime-logo.png' %}" alt="ShowTime Logo" class="img-fluid mx-auto d-block">
+
+        
+        <h1 class="text-center my-4">Movies Watched</h1>
+
+        
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ movie.id }}</td>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.year }}</td>
+                        <td>{{ movie.genre }}</td>
+                        <td>{{ movie.rating }}</td>
+                        <td>{{ movie.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        
+        <form action="{% url 'ShowTimeApp:updateMovie' %}" method="POST" class="text-center">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form }}
+            </div>
+            <button type="submit" class="btn btn-warning mx-2 btn-block">Update the Movie!</button>
+        </form>
+
+       
+        <p class="text-center my-3">{{ message }}</p>
+
+        
+        <div class="text-center">
+            <a href="{% url 'ShowTimeApp:displayMovies' %}" class="btn btn-secondary">Back to Main Menu</a>
+        </div>
+    </div>
+
+    
+</body>
+</html>
